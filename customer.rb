@@ -16,7 +16,7 @@ class Customer
     total_amount, frequent_renter_points = 0, 0
     result = "Rental Record for #{@name} \n"
     @rentals.each do |element|
-      this_amount = amount_for(element)
+      this_amount = element.charge
 
       # add rental points
       frequent_renter_points += 1
@@ -35,9 +35,5 @@ class Customer
     result += "Amount owed is #{total_amount}\n"
     result += "You earned #{frequent_renter_points} frequent renter points"
     result
-  end
-
-  def amount_for(rental)
-    rental.charge
   end
 end
