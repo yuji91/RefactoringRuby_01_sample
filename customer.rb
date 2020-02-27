@@ -16,8 +16,6 @@ class Customer
     total_amount, frequent_renter_points = 0, 0
     result = "Rental Record for #{@name} \n"
     @rentals.each do |element|
-      this_amount = element.charge
-
       # add rental points
       frequent_renter_points += 1
 
@@ -27,8 +25,8 @@ class Customer
       end
 
       # show prices for this rental
-      result += "\t" + element.movie.title + "\t" + this_amount.to_s + "\n"
-      total_amount += this_amount
+      result += "\t" + element.movie.title + "\t" + element.charge.to_s + "\n"
+      total_amount += element.charge
     end
 
     # add footer row
