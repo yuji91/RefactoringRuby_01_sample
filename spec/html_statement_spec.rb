@@ -29,13 +29,26 @@ RSpec.describe  do
       expected_result = "<h1>Rentals for <em>customer_01</em><h1><p>\n\tmovie_01\t3.5\n<p>You owe <em>3.5</em><p>\nOn this rental you earned <em>1</em> frequent renter points<p>"
       expect(result).to match expected_result
 
-      # movie: new_release && days_rented: 5 --> 15
+      # movie: new_release && days_rented: 5 --> 15, 2 frequents
       movie = Movie.new("movie_01", Movie::NEW_RELEASE)
       rental = Rental.new(movie, 5)
       customer = Customer.new("customer_01")
       customer.add_rental(rental)
       result = customer.html_statement
       expected_result = "<h1>Rentals for <em>customer_01</em><h1><p>\n\tmovie_01\t15\n<p>You owe <em>15</em><p>\nOn this rental you earned <em>2</em> frequent renter points<p>"
+      expect(result).to match expected_result
+
+      # movies: new_release && days_rented: 3
+      # movies: new_release && days_rented: 5 --> 24, 4 frequents
+      movie_1 = Movie.new("movie_01", Movie::NEW_RELEASE)
+      movie_2 = Movie.new("movie_02", Movie::NEW_RELEASE)
+      rental_1 = Rental.new(movie_1, 3)
+      rental_2 = Rental.new(movie_2, 5)
+      customer = Customer.new("customer_01")
+      customer.add_rental(rental_1)
+      customer.add_rental(rental_2)
+      result = customer.html_statement
+      expected_result = "<h1>Rentals for <em>customer_01</em><h1><p>\n\tmovie_01\t9\n\tmovie_02\t15\n<p>You owe <em>24</em><p>\nOn this rental you earned <em>4</em> frequent renter points<p>"
       expect(result).to match expected_result
 
       # movie: children && days_rented: 10 --> 12.0
