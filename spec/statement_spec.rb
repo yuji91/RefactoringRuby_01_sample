@@ -8,7 +8,7 @@ RSpec.describe  do
 
   describe 'statement method' do
     it 'is correct to output result from statement method' do
-      movie = Movie.new("movie_01", Movie::REGULAR)
+      movie = Movie.new("movie_01", RegularPrice.new)
       rental = Rental.new(movie, 0)
       customer = Customer.new("customer_01")
 
@@ -21,7 +21,7 @@ RSpec.describe  do
 
     it 'is correct to output days_rented_logic from statement method' do
       # movie: regular and days_rented 3 --> 3.5
-      movie = Movie.new("movie_01", Movie::REGULAR)
+      movie = Movie.new("movie_01", RegularPrice.new)
       rental = Rental.new(movie, 3)
       customer = Customer.new("customer_01")
       customer.add_rental(rental)
@@ -30,7 +30,7 @@ RSpec.describe  do
       expect(result).to match expected_result
 
       # movie: new_release && days_rented: 5 --> 15, 2 frequents
-      movie = Movie.new("movie_01", Movie::NEW_RELEASE)
+      movie = Movie.new("movie_01", NewReleasePrice.new)
       rental = Rental.new(movie, 5)
       customer = Customer.new("customer_01")
       customer.add_rental(rental)
@@ -40,8 +40,8 @@ RSpec.describe  do
 
       # movies: new_release && days_rented: 3
       # movies: new_release && days_rented: 5 --> 24, 4 frequents
-      movie_1 = Movie.new("movie_01", Movie::NEW_RELEASE)
-      movie_2 = Movie.new("movie_02", Movie::NEW_RELEASE)
+      movie_1 = Movie.new("movie_01", NewReleasePrice.new)
+      movie_2 = Movie.new("movie_02", NewReleasePrice.new)
       rental_1 = Rental.new(movie_1, 3)
       rental_2 = Rental.new(movie_2, 5)
       customer = Customer.new("customer_01")
@@ -52,7 +52,7 @@ RSpec.describe  do
       expect(result).to match expected_result
 
       # movie: children && days_rented: 10 --> 12.0
-      movie = Movie.new("movie_01", Movie::CHILDREN)
+      movie = Movie.new("movie_01", ChildrenPrice.new)
       rental = Rental.new(movie, 10)
       customer = Customer.new("customer_01")
       customer.add_rental(rental)
