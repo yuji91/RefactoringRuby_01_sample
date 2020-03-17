@@ -1,0 +1,13 @@
+@startuml
+class Recorder {
+  messages
+  method_missing()
+  play_for()
+}
+class CommandCenter {
+  start()
+  stop()
+}
+
+Recorder --> CommandCenter : 1
+@enduml
