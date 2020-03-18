@@ -32,3 +32,18 @@ def calculate_outstanding
   @orders.inject(0.0) { |result, order| result + order.amount }
 end
 # 抽出したメソッドをテストしてから、さらに配列に対するコレクションクロージャメソッドのinjectを使う。
+#
+# この場合、outstanding変数は、ごく当たり前な固定値で初期化されているだけなので、抽出したコード内だけで初期化できる。
+# 変数がもう少し複雑な操作を受けている場合には、それまでの値を引数として新メソッドに渡さなければならない。
+# リファクタリング前のコードが、次のようなものだったとすると、
+def print_owing(previous_amount)
+  outstanding = previous_amount * 1.2
+
+  print_banner
+
+  # 勘定を計算(calculate outstanding)
+  @orders.each do |order|
+    outstanding += order.amount
+  end
+  print_details outstanding
+end
