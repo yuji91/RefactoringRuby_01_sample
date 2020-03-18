@@ -10,15 +10,8 @@
 #
 # 次のメソッドはこれを具体的に説明してくれる。
 def print_owing
-  outstanding = 0.0
-
   print_banner
-
-  # 勘定を計算(calculate outstanding)
-  @orders.each do |order|
-    outstanding += order.amount
-  end
-
+  outstanding = calculate_outstanding
   print_details outstanding
 end
 
@@ -32,4 +25,13 @@ end
 def print_details(outstanding)
   puts "name: #{@name}"
   puts "amount: #{outstanding}"
+end
+
+def calculate_outstanding
+  # 勘定を計算(calculate outstanding)
+  outstanding = 0.0
+  @orders.each do |order|
+    outstanding += order.amount
+  end
+  outstanding
 end
