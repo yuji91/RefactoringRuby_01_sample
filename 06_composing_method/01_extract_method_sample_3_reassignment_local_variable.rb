@@ -37,12 +37,11 @@ end
 # 変数がもう少し複雑な操作を受けている場合には、それまでの値を引数として新メソッドに渡さなければならない。
 # リファクタリング前のコードが、次のようなものだったとすると、
 def print_owing(previous_amount)
-  outstanding = previous_amount * 1.2
 
   print_banner
 
-  # 勘定を計算(calculate outstanding)
-  outstanding = calculate_outstanding(outstanding)
+  # このコードをテストしてから、outstanding変数の初期化をわかりやすくする。
+  outstanding = calculate_outstanding(previous_amount * 1.2)
 
   print_details outstanding
 end
