@@ -42,8 +42,12 @@ def print_owing(previous_amount)
   print_banner
 
   # 勘定を計算(calculate outstanding)
-  @orders.each do |order|
-    outstanding += order.amount
-  end
+  outstanding = calculate_outstanding(outstanding)
+
   print_details outstanding
+end
+
+# 抽出したメソッドは次のようになる。
+def calculate_outstanding(initial_value)
+  @orders.inject(initial_value) { |result, order| result + order.amount }
 end
