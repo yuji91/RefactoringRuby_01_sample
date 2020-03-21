@@ -5,9 +5,10 @@
 # テストしてから、次を置換する(呼び出し元が一列に並んで踊るような感じである)。
 # これが最後なので、一時変数への代入も削除する。
 # 一時変数が1つ消えたので、同じようにdiscount_factorもメソッドにする。
+# base_priceを問い合わせに取り換えていなければ、discount_factorを抽出するのは難しかったことに注意していただきたい。
+# priceメソッドは、次のようになる。
 def price
-  a_discount_factor = discount_factor
-  base_price * a_discount_factor
+  base_price * discount_factor
 end
 
 def base_price
