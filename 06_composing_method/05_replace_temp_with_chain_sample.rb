@@ -4,6 +4,7 @@
 # 次のコードは、サンプルHTMLを作成できるようにするSelectクラスと、Selectクラスの使用例である。
 # メソッドのチェイン呼び出しを実現するための第1歩は、Selectのインスタンスを作ってオプションを追加するメソッドを作ることだ。
 # 次に、オプションを追加するメソッドを書き換えて、selfを返すようにし、チェイニングできるようにする。
+# 最後に、チェイニングしたときに流れるように(fluentに)読めるように add_option メソッドの名前を変える。たとえば、and などがよいだろう。
 class Select
   def self.with_option(option)
     select = self.new
@@ -15,12 +16,12 @@ class Select
     @options ||= []
   end
 
-  def add_option(arg)
+  def and(arg)
     options << arg
     self
   end
 end
 
 =begin
-select = Select.with_option(1999).add_option(2000).add_option(2001).add_option(2002)
+select = Select.with_option(1999).and(2000).and(2001).and(2002)
 select # => #<Select: 0x28708 @options=[1999, 2000, 2001, 2002]>
