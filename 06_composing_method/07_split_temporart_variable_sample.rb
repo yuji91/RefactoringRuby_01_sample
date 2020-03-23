@@ -10,8 +10,8 @@ def distance_traveled(time)
   secondary_time = time - @delay
   if (secondary_time > 0)
     primary_vel = primary_acc * @delay
-    acc = (@primary_force + @secondary_force) / @mass
-    result += primary_vel * secondary_time + 5 * acc * secondary_time * secondary_time
+    secondary_acc = (@primary_force + @secondary_force) / @mass
+    result += primary_vel * secondary_time + 5 * secondary_acc * secondary_time * secondary_time
   end
 end
 # リファクタリングには格好の関数だが、「一時変数の分割」という観点からは、acc変数が2度設定されていることに注目しよう。
@@ -22,3 +22,7 @@ end
 # 次に、その位置から次の代入までの範囲に現れる一時変数の名前を同じように変える。
 # 新しい名前として、一時変数の第1の用途だけを表すものを選んでいる。
 # テストは成功するはずである。
+# 一時変数の第2の代入についても同様の変更を加える。
+# こうすると、元の一時変数名は完全になくなり、第2の用途にも新しい変数名が使われるようになる。
+# まだ、他にもリファクタリングすべき箇所がいくつも思いつくだろう。 それを続けていただきたい
+# (ハギスを食べるよりはいいはずだ。あの中には訳がわからないものが入っている)。
