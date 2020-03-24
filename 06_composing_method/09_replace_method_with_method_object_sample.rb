@@ -13,3 +13,14 @@ class Account
     important_value3 - 2 * important_value1
   end
 end
+# このメソッドをメソッドオブジェクトに書き換えるために、まず、新しいクラスを宣言する。
+# 元のオブジェクトとメソッド内の引数、一時変数のための属性を宣言してある。
+class Gamma
+  attr_reader :account,
+              :input_val,
+              :quantity,
+              :year_to_date,
+              :important_value1,
+              :important_value2,
+              :important_value3
+end
