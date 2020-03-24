@@ -7,3 +7,16 @@ def discount(input_val, quantity, year_to_date)
   result -= 4 if year_to_date > 10000
   result
 end
+# Rubyでは、値渡しを使っていることが何かと混乱の原因になる。
+# Rubyは、すべての箇所で厳密に値渡しを使っているので、
+# 次のプログラムは、
+x = 5
+def triple(arg)
+  arg = arg * 3
+  puts "arg in triple: #{arg}"
+end
+triple x
+puts "x after triple #{x}"
+# 次のように出力する。
+# arg in triple: 15
+# x after triple 5
