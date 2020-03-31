@@ -10,15 +10,8 @@
 #
 # 次のメソッドはこれを具体的に説明してくれる。
 def print_owing
-  outstanding = 0.0
-
   print_banner
-
-  # 勘定を計算(calculate outstanding)
-  @orders.each do |order|
-    outstanding += order.amount
-  end
-
+  outstanding = calculate_outstanding
   print_details outstanding
 end
 
@@ -33,3 +26,32 @@ def print_details(outstanding)
   puts "name: #{@name}"
   puts "amount: #{outstanding}"
 end
+
+def calculate_outstanding
+  # 勘定を計算(calculate outstanding)
+  @orders.inject(0.0) { |result, order| result + order.amount }
+end
+# 抽出したメソッドをテストしてから、さらに配列に対するコレクションクロージャメソッドのinjectを使う。
+#
+# この場合、outstanding変数は、ごく当たり前な固定値で初期化されているだけなので、抽出したコード内だけで初期化できる。
+# 変数がもう少し複雑な操作を受けている場合には、それまでの値を引数として新メソッドに渡さなければならない。
+# リファクタリング前のコードが、次のようなものだったとすると、
+def print_owing(previous_amount)
+  print_banner
+  outstanding = calculate_outstanding(previous_amount * 1.2)
+  print_details outstanding
+end
+
+# 抽出したメソッドは次のようになる。
+def calculate_outstanding(initial_value)
+  @orders.inject(initial_value) { |result, order| result + order.amount }
+end
+
+# それでは、複数の変数を返さなければならなくなったらどうなるのだろうか。
+# 多重代入を使えば複数の値を返すこともできるが、私はできる限り戻り値を1個に絞りたいと考えている。
+# この場合なら、1つの値だけを返すメソッドを複数抽出する方法を考える。
+#
+# 一時変数が多すぎて、メソッドの抽出が非常にやりにくくなることがよくある。
+# そのような場合には、「一時変数から問い合わせメソッドへ」(Replace Temp with Query)を使って一時変数を減らすことを考える。
+# 何をやってもまだしっくりこない場合は、「メソッドからメソッドオブジェクトへ」(Replace Method with Method Object)を使う。
+# このリファクタリングなら、一時変数がいくつかあっても、それらを使って何をしていても、対応できる。

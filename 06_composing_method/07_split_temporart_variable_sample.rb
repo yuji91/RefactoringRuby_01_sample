@@ -4,17 +4,25 @@
 # しばらくすると、第2の力を受けてハギスに加速が付く。
 # 運動の一般法則を使えば、ハギスの移動距離は次のように計算できる。
 def distance_traveled(time)
-  acc = @primary_force / @mass
+  primary_acc = @primary_force / @mass
   primary_time = [time, @delay].min
-  result = 0.5 * acc * primary_time * primary_time
+  result = 0.5 * primary_acc * primary_time * primary_time
   secondary_time = time - @delay
   if (secondary_time > 0)
-    primary_vel = acc * @delay
-    acc = (@primary_force + @secondary_force) / @mass
-    result += primary_vel * secondary_time + 5 * acc * secondary_time * secondary_time
+    primary_vel = primary_acc * @delay
+    secondary_acc = (@primary_force + @secondary_force) / @mass
+    result += primary_vel * secondary_time + 5 * secondary_acc * secondary_time * secondary_time
   end
 end
 # リファクタリングには格好の関数だが、「一時変数の分割」という観点からは、acc変数が2度設定されていることに注目しよう。
 # acc変数は2つの仕事を持っている。
 # 最初の力を受けた結果得た最初の加速度を保存することと、2つの力を受けた後の加速度を保存することである。
 # そこで、この2つを分割する。
+# まず、一時変数の名前を変更する。
+# 次に、その位置から次の代入までの範囲に現れる一時変数の名前を同じように変える。
+# 新しい名前として、一時変数の第1の用途だけを表すものを選んでいる。
+# テストは成功するはずである。
+# 一時変数の第2の代入についても同様の変更を加える。
+# こうすると、元の一時変数名は完全になくなり、第2の用途にも新しい変数名が使われるようになる。
+# まだ、他にもリファクタリングすべき箇所がいくつも思いつくだろう。 それを続けていただきたい
+# (ハギスを食べるよりはいいはずだ。あの中には訳がわからないものが入っている)。
