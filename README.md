@@ -1,5 +1,8 @@
 ## Refactoring RubyEdition
 
+### link
+[06_composing_method](https://github.com/yuji91/RefactoringRuby_01_sample/tree/feature/06_composing_method_after/06_composing_method)
+
 ### Getting Started
 ```ruby
 ruby -v # 2.6.5
